@@ -9,16 +9,16 @@ export const nanoid = (length: number = slugDefaultLength) => customAlphabet('23
 
 export const LinkSchema = z.object({
   id: z.string().trim().max(26).default(nanoid(10)),
-  url: z.string().trim().url().max(20480),
-  slug: z.string().trim().max(20480).regex(new RegExp(slugRegex)).default(nanoid()),
-  comment: z.string().trim().max(20480).optional(),
+  url: z.string().trim().url().max(5000),
+  slug: z.string().trim().max(5000).regex(new RegExp(slugRegex)).default(nanoid()),
+  comment: z.string().trim().max(5000).optional(),
   createdAt: z.number().int().safe().default(() => Math.floor(Date.now() / 1000)),
   updatedAt: z.number().int().safe().default(() => Math.floor(Date.now() / 1000)),
   expiration: z.number().int().safe().refine(expiration => expiration > Math.floor(Date.now() / 1000), {
     message: 'expiration must be greater than current time',
     path: ['expiration'], // 这里指定错误消息关联到哪个字段
   }).optional(),
-  title: z.string().trim().max(20480).optional(),
-  description: z.string().trim().max(20480).optional(),
-  image: z.string().trim().url().max(20480).optional(),
+  title: z.string().trim().max(2048).optional(),
+  description: z.string().trim().max(2048).optional(),
+  image: z.string().trim().url().max(2048).optional(),
 })
